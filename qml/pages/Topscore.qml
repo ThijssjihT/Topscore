@@ -4,6 +4,7 @@ import Sailfish.Silica 1.0
 Page {
     id:                     page
     allowedOrientations:    Orientation.All
+    onGameCompleteChanged:  if (gameComplete) finishTimer.start()
 
     property bool   gameStarted:    false
     property bool   rollAnimation:  false
@@ -16,6 +17,28 @@ Page {
         ListElement { value: 1; selected: false }
         ListElement { value: 1; selected: false }
     }
+    property var    scoreModel: ListModel {
+        ListElement { key: "ones";          label: qsTr("Ones");            hint: qsTr("Total 1's");        section: 1; score: -1; filled: false }
+        ListElement { key: "twos";          label: qsTr("Twos");            hint: qsTr("Total 2's");        section: 1; score: -1; filled: false }
+        ListElement { key: "threes";        label: qsTr("Threes");          hint: qsTr("Total 3's");        section: 1; score: -1; filled: false }
+        ListElement { key: "fours";         label: qsTr("Fours");           hint: qsTr("Total 4's");        section: 1; score: -1; filled: false }
+        ListElement { key: "fives";         label: qsTr("Fives");           hint: qsTr("Total 5's");        section: 1; score: -1; filled: false }
+        ListElement { key: "sixes";         label: qsTr("Sixes");           hint: qsTr("Total 6's");        section: 1; score: -1; filled: false }
+        ListElement { key: "3ofakind";      label: qsTr("Three of a Kind"); hint: qsTr("Sum of all dice");  section: 2; score: -1; filled: false }
+        ListElement { key: "4ofakind";      label: qsTr("Four of a Kind");  hint: qsTr("Sum of all dice");  section: 2; score: -1; filled: false }
+        ListElement { key: "fullhouse";     label: qsTr("Full House");      hint: qsTr("25 points");        section: 2; score: -1; filled: false }
+        ListElement { key: "smallstraight"; label: qsTr("Small Straight");  hint: qsTr("30 points");        section: 2; score: -1; filled: false }
+        ListElement { key: "largestraight"; label: qsTr("Large Straight");  hint: qsTr("40 points");        section: 2; score: -1; filled: false }
+        ListElement { key: "topscore";      label: qsTr("Top Score");       hint: qsTr("50 points");        section: 2; score: -1; filled: false }
+        ListElement { key: "chance";        label: qsTr("Chance");          hint: qsTr("Sum of all dice");  section: 2; score: -1; filled: false }
+    }
+    property int            scoreTick: 0
+    readonly property int   part1Subtotal:    (scoreTick, sumSection(1))
+    readonly property int   part1Bonus:       part1Subtotal >= 63 ? 35 : 0
+    readonly property int   part1Total:       part1Subtotal + part1Bonus
+    readonly property int   part2Total:       (scoreTick, sumSection(2))
+    readonly property int   grandTotalVal:    part1Total + part2Total
+    readonly property bool  gameComplete:     (scoreTick, allScoresFilled())
 
     // To enable PullDownMenu, place our content in a SilicaFlickable
     SilicaFlickable {
@@ -51,29 +74,13 @@ Page {
             Row {
                 spacing: Theme.paddingLarge
                 Column {
-                    Label {
-                        text:   qsTr("Ones")
-                        color:  Theme.highlightColor
-                    }
-                    Label {
-                        text:   qsTr("Twos")
-                        color:  Theme.highlightColor
-                    }
-                    Label {
-                        text:   qsTr("Threes")
-                        color:  Theme.highlightColor
-                    }
-                    Label {
-                        text:   qsTr("Fours")
-                        color:  Theme.highlightColor
-                    }
-                    Label {
-                        text:   qsTr("Fives")
-                        color:  Theme.highlightColor
-                    }
-                    Label {
-                        text:   qsTr("Sixes")
-                        color:  Theme.highlightColor
+                    Repeater {
+                        model: scoreModel
+                        Label {
+                            visible:    section === 1
+                            text:       label
+                            color:      Theme.highlightColor
+                        }
                     }
                     Label {
                         text:   qsTr("Total points")
@@ -87,32 +94,15 @@ Page {
                         text:   qsTr("Total part 1")
                         color:  Theme.highlightColor
                     }
-
                 }
                 Column {
-                    Label {
-                        text:   qsTr("Total 1's")
-                        color:  Theme.secondaryHighlightColor
-                    }
-                    Label {
-                        text:   qsTr("Total 2's")
-                        color:  Theme.secondaryHighlightColor
-                    }
-                    Label {
-                        text:   qsTr("Total 3's")
-                        color:  Theme.secondaryHighlightColor
-                    }
-                    Label {
-                        text:   qsTr("Total 4's")
-                        color:  Theme.secondaryHighlightColor
-                    }
-                    Label {
-                        text:   qsTr("Total 5's")
-                        color:  Theme.secondaryHighlightColor
-                    }
-                    Label {
-                        text:   qsTr("Total 6's")
-                        color:  Theme.secondaryHighlightColor
+                    Repeater {
+                        model: scoreModel
+                        Label {
+                            visible: section === 1
+                            text:    hint
+                            color:   Theme.secondaryHighlightColor
+                        }
                     }
                     Label {
                         text:   "→"
@@ -128,80 +118,33 @@ Page {
                     }
                 }
                 Column {
-                    Label {
-                        id:     score1
-                        text:   "..."
-                        color:  Theme.primaryColor
+                    Repeater {
+                        model: scoreModel
+                        Label {
+                            visible: section === 1
+                            text:    filled ? score.toString() : "..."
+                            color:   filled ? Theme.primaryColor : Theme.secondaryColor
 
-                        MouseArea {
-                            anchors.fill:   parent
-                            onClicked:      calculateAndFill("ones")
-                        }
-                    }
-                    Label {
-                        id:     score2
-                        text:   "..."
-                        color:  Theme.primaryColor
-
-                        MouseArea {
-                            anchors.fill:   parent
-                            onClicked:      calculateAndFill("twos")
-                        }
-                    }
-                    Label {
-                        id:     score3
-                        text:   "..."
-                        color:  Theme.primaryColor
-
-                        MouseArea {
-                            anchors.fill:   parent
-                            onClicked:      calculateAndFill("threes")
-                        }
-                    }
-                    Label {
-                        id:     score4
-                        text:   "..."
-                        color:  Theme.primaryColor
-
-                        MouseArea {
-                            anchors.fill:   parent
-                            onClicked:      calculateAndFill("fours")
-                        }
-                    }
-                    Label {
-                        id:     score5
-                        text:   "..."
-                        color:  Theme.primaryColor
-
-                        MouseArea {
-                            anchors.fill:   parent
-                            onClicked:      calculateAndFill("fives")
-                        }
-                    }
-                    Label {
-                        id:     score6
-                        text:   "..."
-                        color:  Theme.primaryColor
-
-                        MouseArea {
-                            anchors.fill:   parent
-                            onClicked:      calculateAndFill("sixes")
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked:    commitScore(index)
+                            }
                         }
                     }
                     Label {
                         id:     subtotal
-                        text:   "0"
+                        text:   part1Subtotal
                         color:  Theme.primaryColor
                     }
 
                     Label {
                         id:     bonus
-                        text:   "0"
+                        text:   part1Bonus
                         color:  Theme.primaryColor
                     }
                     Label {
                         id:     totalPart1
-                        text:   "0"
+                        text:   part1Total
                         color:  Theme.primaryColor
                     }
                 }
@@ -210,67 +153,27 @@ Page {
             Row {
                 spacing: Theme.paddingLarge
                 Column {
-                    Label {
-                        text:   qsTr("Three of a Kind")
-                        color:  Theme.highlightColor
-                    }
-                    Label {
-                        text:   qsTr("Four of a Kind")
-                        color:  Theme.highlightColor
-                    }
-                    Label {
-                        text:   qsTr("Full House")
-                        color:  Theme.highlightColor
-                    }
-                    Label {
-                        text:   qsTr("Small Straight")
-                        color:  Theme.highlightColor
-                    }
-                    Label {
-                        text:   qsTr("Large Straight")
-                        color:  Theme.highlightColor
-                    }
-                    Label {
-                        text:   qsTr("Top Score")
-                        color:  Theme.highlightColor
-                    }
-                    Label {
-                        text:   qsTr("Chance")
-                        color:  Theme.highlightColor
+                    Repeater {
+                        model: scoreModel
+                        Label {
+                            visible: section === 2
+                            text:    label
+                            color:   Theme.highlightColor
+                        }
                     }
                     Label {
                         text:   qsTr("Total part 2")
-                        color:  Theme.highlightColor
+                        color: Theme.highlightColor
                     }
                 }
                 Column {
-                    Label {
-                        text:   qsTr("Sum of all dice")
-                        color:  Theme.secondaryHighlightColor
-                    }
-                    Label {
-                        text:   qsTr("Sum of all dice")
-                        color:  Theme.secondaryHighlightColor
-                    }
-                    Label {
-                        text:   qsTr("25 points")
-                        color:  Theme.secondaryHighlightColor
-                    }
-                    Label {
-                        text:   qsTr("30 points")
-                        color:  Theme.secondaryHighlightColor
-                    }
-                    Label {
-                        text:   qsTr("40 points")
-                        color:  Theme.secondaryHighlightColor
-                    }
-                    Label {
-                        text:   qsTr("50 points")
-                        color:  Theme.secondaryHighlightColor
-                    }
-                    Label {
-                        text:   qsTr("Sum of all dice")
-                        color:  Theme.secondaryHighlightColor
+                    Repeater {
+                        model: scoreModel
+                        Label {
+                            visible: section === 2
+                            text:    hint
+                            color:   Theme.secondaryHighlightColor
+                        }
                     }
                     Label {
                         text:   "→"
@@ -278,79 +181,22 @@ Page {
                     }
                 }
                 Column {
-                    Label {
-                        id:     score3ofaKind
-                        text:   "..."
-                        color:  Theme.primaryColor
+                    Repeater {
+                        model: scoreModel
+                        Label {
+                            visible: section === 2
+                            text:    filled ? score.toString() : "..."
+                            color:   filled ? Theme.primaryColor : Theme.secondaryColor
 
-                        MouseArea {
-                            anchors.fill:   parent
-                            onClicked:      calculateAndFill("3ofakind")
-                        }
-                    }
-                    Label {
-                        id:     score4ofaKind
-                        text:   "..."
-                        color:  Theme.primaryColor
-
-                        MouseArea {
-                            anchors.fill:   parent
-                            onClicked:      calculateAndFill("4ofakind")
-                        }
-                    }
-                    Label {
-                        id:     scoreFullHouse
-                        text:   "..."
-                        color:  Theme.primaryColor
-
-                        MouseArea {
-                            anchors.fill:   parent
-                            onClicked:      calculateAndFill("fullhouse")
-                        }
-                    }
-                    Label {
-                        id:     scoreSmallStr
-                        text:   "..."
-                        color:  Theme.primaryColor
-
-                        MouseArea {
-                            anchors.fill:   parent
-                            onClicked:      calculateAndFill("smallstraight")
-                        }
-                    }
-                    Label {
-                        id:     scoreLargeStr
-                        text:   "..."
-                        color:  Theme.primaryColor
-
-                        MouseArea {
-                            anchors.fill:   parent
-                            onClicked:      calculateAndFill("largestraight")
-                        }
-                    }
-                    Label {
-                        id:     scoreTopScore
-                        text:   "..."
-                        color:  Theme.primaryColor
-
-                        MouseArea {
-                            anchors.fill:   parent
-                            onClicked:      calculateAndFill("topscore")
-                        }
-                    }
-                    Label {
-                        id:     scoreChance
-                        text:   "..."
-                        color:  Theme.primaryColor
-
-                        MouseArea {
-                            anchors.fill:   parent
-                            onClicked:      calculateAndFill("chance")
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked:    commitScore(index)
+                            }
                         }
                     }
                     Label {
                         id:     totalPart2
-                        text:   "0"
+                        text:   part2Total
                         color:  Theme.primaryColor
                     }
                 }
@@ -389,17 +235,17 @@ Page {
                 Column {
                     Label {
                         id:     grandTotalPart1
-                        text:   "0"
+                        text:   part1Total
                         color:  Theme.primaryColor
                     }
                     Label {
                         id:     grandTotalPart2
-                        text:   "0"
+                        text:   part2Total
                         color:  Theme.primaryColor
                     }
                     Label {
                         id:     grandTotal
-                        text:   "0"
+                        text:   grandTotalVal
                         color:  Theme.primaryColor
                     }
                 }
@@ -483,69 +329,111 @@ Page {
         }
     }
 
+    Timer {
+        id:             finishTimer
+        interval:       800
+        onTriggered:    console.log("game finished, grand total =", grandTotalVal)
+    }
+
     function rollDie() {
         return Math.floor(Math.random() * 6) + 1
     }
 
-    function calculateAndFill(category) {
-        if (rollNumber === 0) return
-        var score = 0
-        switch(category) {
-        case "ones":
-            for (var i = 0; i < 5; i++) {
-                if (diceModel.get(i).value === 1) score += 1
-            }
-            score1.text = score
-            break
-        case "twos":
-            for (var i = 0; i < 5; i++) {
-                if (diceModel.get(i).value === 2) score += 2
-            }
-            score2.text = score
-            break
-        case "threes":
-            for (var i = 0; i < 5; i++) {
-                if (diceModel.get(i).value === 3) score += 3
-            }
-            score3.text = score
-            break
-        case "fours":
-            for (var i = 0; i < 5; i++) {
-                if (diceModel.get(i).value === 4) score += 4
-            }
-            score4.text = score
-            break
-        case "fives":
-            for (var i = 0; i < 5; i++) {
-                if (diceModel.get(i).value === 5) score += 5
-            }
-            score5.text = score
-            break
-        case "sixes":
-            for (var i = 0; i < 5; i++) {
-                if (diceModel.get(i).value === 6) score += 6
-            }
-            score6.text = score
-            break
+    function diceValues() {
+        var d = []
+        for (var i = 0; i < 5; i++) d.push(diceModel.get(i).value)
+        return d
+    }
 
-        case "chance":
-            for (var i = 0; i < 5; i++) {
-                score += diceModel.get(i).value
-            }
-            scoreChance.text = score
-            break
-        case "topscore":
-            var validitycheck = true
-            for (var i = 0; i < 4; i++) {
-                if (diceModel.get(i).value !== diceModel.get(i+1).value) validitycheck = false
-            }
-            if (validitycheck) { scoreTopScore.text = 50 } else { scoreTopScore.text = 0 }
-            break
+    function countFace(dice, face) {
+        var n = 0
+        for (var i = 0; i < dice.length; i++) if (dice[i] === face) n++
+        return n
+}
+
+    function sumDice(dice) {
+        var t = 0
+        for (var i = 0; i < dice.length; i++) t += dice[i]
+        return t
+    }
+
+    function allSame(dice) {
+        for (var i = 1; i < dice.length; i++) if (dice[i] !== dice[0]) return false
+        return true
+    }
+
+    function hasNOfAKind(dice, n) {
+        for (var face = 1; face <= 6; face++) {
+            if (countFace(dice, face) >= n) return true
         }
+        return false
+    }
 
+    function isFullHouse(dice) {
+        var d = dice.slice().sort()
+        if (allSame(d)) return false
+        return d[0] === d[1] && d[3] === d[4]
+               && (d[1] === d[2] || d[2] === d[3])
+    }
 
+    // Returns sorted unique values.
+    function uniqueSorted(dice) {
+        var d = dice.slice().sort()
+        var u = [d[0]]
+        for (var i = 1; i < d.length; i++) {
+            if (d[i] !== d[i-1]) u.push(d[i])
+        }
+        return u
+    }
 
+    function isLargeStraight(dice) {
+        var u = uniqueSorted(dice)
+        return u.length === 5 && (u[4] - u[0]) === 4
+    }
 
+    function isSmallStraight(dice) {
+        var u = uniqueSorted(dice)
+        if (u.length < 4) return false
+        // Check every 4-long window.
+        for (var i = 0; i + 3 < u.length; i++) {
+            if (u[i+3] - u[i] === 3) return true
+        }
+        return false
+    }
+
+    function scoreFor(key, dice) {
+        switch (key) {
+        case "ones":            return countFace(dice, 1) * 1
+        case "twos":            return countFace(dice, 2) * 2
+        case "threes":          return countFace(dice, 3) * 3
+        case "fours":           return countFace(dice, 4) * 4
+        case "fives":           return countFace(dice, 5) * 5
+        case "sixes":           return countFace(dice, 6) * 6
+        case "chance":          return sumDice(dice)
+        case "topscore":        return allSame(dice) ? 50 : 0
+        case "3ofakind":        return hasNOfAKind(dice, 3) ? sumDice(dice) : 0
+        case "4ofakind":        return hasNOfAKind(dice, 4) ? sumDice(dice) : 0
+        case "fullhouse":       return isFullHouse(dice) ? 25 : 0
+        case "smallstraight":   return isSmallStraight(dice) ? 30 : 0
+        case "largestraight":   return isLargeStraight(dice) ? 40 : 0
+        }
+        return 0
+    }
+
+    function commitScore(index) {
+        if (rollNumber === 0) return
+        var entry = scoreModel.get(index)
+        if (entry.filled) return    // ← prevents overwriting
+
+        var s = scoreFor(entry.key, diceValues())
+        scoreModel.setProperty(index, "score", s)
+        scoreModel.setProperty(index, "filled", true)
+        scoreTick++                 // trigger derived-property re-evaluation
+
+        resetTurn()
+    }
+
+    function resetTurn() {
         rollNumber = 0
         rollButton.text = qsTr("1st Roll")
         rollButton.enabled = true
@@ -553,5 +441,21 @@ Page {
             diceRepeater.itemAt(i).checked = false
         }
         diceView.hide()
+    }
+
+    function sumSection(sec) {
+        var t = 0
+        for (var i = 0; i < scoreModel.count; i++) {
+            var e = scoreModel.get(i)
+            if (e.section === sec && e.filled) t += e.score
+        }
+        return t
+    }
+
+    function allScoresFilled() {
+        for (var i = 0; i < scoreModel.count; i++) {
+            if (!scoreModel.get(i).filled) return false
+        }
+        return true
     }
 }
