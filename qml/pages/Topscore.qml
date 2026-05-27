@@ -4,6 +4,7 @@ import Sailfish.Silica 1.0
 Page {
     id:                     page
     allowedOrientations:    Orientation.All
+    onGameCompleteChanged:  if (gameComplete) finishTimer.start()
 
     property bool   gameStarted:    false
     property bool   rollAnimation:  false
@@ -37,6 +38,7 @@ Page {
     readonly property int   part1Total:       part1Subtotal + part1Bonus
     readonly property int   part2Total:       (scoreTick, sumSection(2))
     readonly property int   grandTotalVal:    part1Total + part2Total
+    readonly property bool  gameComplete:     (scoreTick, allScoresFilled())
 
     // To enable PullDownMenu, place our content in a SilicaFlickable
     SilicaFlickable {
@@ -327,6 +329,12 @@ Page {
         }
     }
 
+    Timer {
+        id:             finishTimer
+        interval:       800
+        onTriggered:    console.log("game finished, grand total =", grandTotalVal)
+    }
+
     function rollDie() {
         return Math.floor(Math.random() * 6) + 1
     }
@@ -442,5 +450,12 @@ Page {
             if (e.section === sec && e.filled) t += e.score
         }
         return t
+    }
+
+    function allScoresFilled() {
+        for (var i = 0; i < scoreModel.count; i++) {
+            if (!scoreModel.get(i).filled) return false
+        }
+        return true
     }
 }
