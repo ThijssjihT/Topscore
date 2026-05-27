@@ -42,4 +42,32 @@ QtObject {
         })
         return out
     }
+
+    function rankFor(score) {
+        _ensure()
+        var r = 1
+        _db().readTransaction(function(tx) {
+            var rs = tx.executeSql(
+                'SELECT COUNT(*) AS c FROM scores WHERE score > ?', [score])
+            r = rs.rows.item(0).c + 1
+        })
+        return r
+    }
+
+    function topScores(limit) {
+        _ensure()
+        var out = []
+        _db().readTransaction(function(tx) {
+            var rs = tx.executeSql(
+                'SELECT score, date FROM scores ' +
+                'ORDER BY score DESC, date ASC LIMIT ?', [limit])
+            for (var i = 0; i < rs.rows.length; i++) {
+                out.push({
+                    score: rs.rows.item(i).score,
+                    date:  rs.rows.item(i).date
+                })
+            }
+        })
+        return out
+    }
 }

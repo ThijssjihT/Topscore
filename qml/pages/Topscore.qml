@@ -330,9 +330,16 @@ Page {
     }
 
     Timer {
-        id:             finishTimer
-        interval:       800
-        onTriggered:    console.log("game finished, grand total =", grandTotalVal)
+        id:         finishTimer
+        interval:   800
+        onTriggered: {
+            scoreStore.addScore(grandTotalVal)
+            var rank = scoreStore.rankFor(grandTotalVal)
+            pageStack.animatorReplace(Qt.resolvedUrl("Scores.qml"), {
+                justFinishedScore: grandTotalVal,
+                justFinishedRank:  rank
+            })
+        }
     }
 
     function rollDie() {
