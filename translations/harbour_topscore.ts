@@ -9,6 +9,29 @@
     </message>
 </context>
 <context>
+    <name>Scores</name>
+    <message>
+        <source>New game</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Top scores</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your score</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rank %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Best of all time</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Settings</name>
     <message>
         <source>Nested Page</source>
