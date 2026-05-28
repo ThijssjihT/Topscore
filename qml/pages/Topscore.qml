@@ -8,11 +8,6 @@ Page {
     Component.onCompleted:  scoreStore.setCurrent(0)
     onGrandTotalValChanged: scoreStore.setCurrent(grandTotalVal)
 
-    property bool   gameStarted:    false
-    property bool   rollAnimation:  false
-    property int    rollTime:       0
-    property int    rollNumber:     0
-
     property var    diceModel: ListModel {
         ListElement { value: 1; selected: false }
         ListElement { value: 1; selected: false }
@@ -35,13 +30,24 @@ Page {
         ListElement { key: "topscore";      label: qsTr("Top Score");       hint: qsTr("50 points");        section: 2; score: -1; filled: false }
         ListElement { key: "chance";        label: qsTr("Chance");          hint: qsTr("Sum of all dice");  section: 2; score: -1; filled: false }
     }
-    property int            scoreTick: 0
-    readonly property int   part1Subtotal:    (scoreTick, sumSection(1))
-    readonly property int   part1Bonus:       part1Subtotal >= 63 ? 35 : 0
-    readonly property int   part1Total:       part1Subtotal + part1Bonus
-    readonly property int   part2Total:       (scoreTick, sumSection(2))
-    readonly property int   grandTotalVal:    part1Total + part2Total
-    readonly property bool  gameComplete:     (scoreTick, allScoresFilled())
+
+    property int            scoreTick:          0
+    property int            pendingIndex:       -1   // -1 = nothing pending
+    property bool           gameStarted:        false
+    property bool           rollAnimation:      false
+    property int            rollTime:           0
+    property int            rollNumber:         0
+    readonly property int   part1Subtotal:      (scoreTick, sumSection(1))
+    readonly property int   part1Bonus:         part1Subtotal >= 63 ? 35 : 0
+    readonly property int   part1Total:         part1Subtotal + part1Bonus
+    readonly property int   part2Total:         (scoreTick, sumSection(2))
+    readonly property int   grandTotalVal:      part1Total + part2Total
+    readonly property bool  gameComplete:       (scoreTick, allScoresFilled())
+
+    RemorsePopup {
+        id:             commitRemorse
+        onCanceled:     pendingIndex = -1
+    }
 
     // To enable PullDownMenu, place our content in a SilicaFlickable
     SilicaFlickable {
@@ -145,7 +151,7 @@ Page {
                 id:                         rollButton
                 text:                       qsTr("1st Roll")
                 anchors.horizontalCenter:   parent.horizontalCenter
-                enabled:                    rollNumber !== 3
+                enabled:                    rollNumber !== 3 && pendingIndex < 0
                 onClicked: function() {
                     rollNumber ++
                     diceView.show()
@@ -187,6 +193,7 @@ Page {
                 id:     diceRepeater
                 model:  diceModel
                 Switch {
+                    enabled:            pendingIndex < 0
                     checked:            model.selected
                     onCheckedChanged:   diceModel.setProperty(index, "selected", checked)
                     icon.source:        "../assets/" + model.value + ".svg"
@@ -317,11 +324,19 @@ Page {
         if (entry.filled) return    // ← prevents overwriting
 
         var s = scoreFor(entry.key, diceValues())
-        scoreModel.setProperty(index, "score", s)
-        scoreModel.setProperty(index, "filled", true)
-        scoreTick++                 // trigger derived-property re-evaluation
-
-        resetTurn()
+        pendingIndex = index
+        commitRemorse.execute(
+            //: %1 = category name (e.g. "Fives"), %2 = points
+            qsTr("Scoring %1: %2").arg(entry.label).arg(s),
+            function() {
+                scoreModel.setProperty(index, "score",  s)
+                scoreModel.setProperty(index, "filled", true)
+                scoreTick++
+                pendingIndex = -1
+                resetTurn()
+            },
+            3000
+        )
     }
 
     function resetTurn() {

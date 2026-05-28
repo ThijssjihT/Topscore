@@ -201,5 +201,10 @@
         <source>Enter score</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Scoring %1: %2</source>
+        <extracomment>%1 = category name (e.g. &quot;Fives&quot;), %2 = points</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>
