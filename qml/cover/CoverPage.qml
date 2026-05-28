@@ -43,7 +43,7 @@ CoverBackground {
         Label {
             anchors.horizontalCenter:   parent.horizontalCenter
             visible:                    !(scoreStore.currentTotal > 0)
-            text:                       qsTr("Previous game:")
+            text:                       qsTr("Last finished game:")
             color:                      Theme.secondaryColor
         }
         Label {
