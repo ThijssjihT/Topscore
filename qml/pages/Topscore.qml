@@ -5,11 +5,14 @@ Page {
     id:                     page
     allowedOrientations:    Orientation.All
     onGameCompleteChanged:  if (gameComplete) finishTimer.start()
+    Component.onCompleted:  scoreStore.setCurrent(0)
+    onGrandTotalValChanged: scoreStore.setCurrent(grandTotalVal)
 
     property bool   gameStarted:    false
     property bool   rollAnimation:  false
     property int    rollTime:       0
     property int    rollNumber:     0
+
     property var    diceModel: ListModel {
         ListElement { value: 1; selected: false }
         ListElement { value: 1; selected: false }
@@ -50,10 +53,10 @@ Page {
                 text: qsTr("Settings")
                 onClicked: pageStack.animatorPush(Qt.resolvedUrl("Settings.qml"))
             }
-            MenuItem {
-                text: qsTr("Top scores")
-                onClicked: pageStack.animatorPush(Qt.resolvedUrl("Scores.qml"))
-            }
+  //          MenuItem {
+  //              text: qsTr("Top scores")
+  //              onClicked: pageStack.animatorPush(Qt.resolvedUrl("Scores.qml"))
+  //          }
         }
 
         // Tell SilicaFlickable the height of its content.

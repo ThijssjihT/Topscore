@@ -4,7 +4,16 @@
 <context>
     <name>CoverPage</name>
     <message>
-        <source>Score:</source>
+        <source>Top Score</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>rank %1</source>
+        <extracomment>%1 = player&apos;s rank, 1 = best ever</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current game:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

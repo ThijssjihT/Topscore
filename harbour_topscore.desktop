@@ -3,7 +3,7 @@ Type=Application
 X-Nemo-Application-Type=silica-qt5
 Icon=harbour_topscore
 Exec=harbour_topscore
-Name=harbour_topscore
+Name=TopScore
 # translation example:
 # your app name in German locale (de)
 #

@@ -2,7 +2,11 @@ import QtQuick 2.0
 import QtQuick.LocalStorage 2.0
 
 QtObject {
+
     id: store
+
+    property int    currentTotal:   0
+    property int    currentRank:    1
 
     function _db() {
         return LocalStorage.openDatabaseSync(
@@ -25,6 +29,8 @@ QtObject {
         _db().transaction(function(tx) {
             tx.executeSql('INSERT INTO scores VALUES (?, ?)', [score, iso])
         })
+        currentTotal = score
+        currentRank  = rankFor(score)
     }
 
     function allScores() {
@@ -69,5 +75,10 @@ QtObject {
             }
         })
         return out
+    }
+
+    function setCurrent(score) {
+        currentTotal = score
+        currentRank  = rankFor(score)
     }
 }

@@ -8,13 +8,13 @@ Page {
     property int            justFinishedScore: -1
     property int            justFinishedRank:  -1
 
-    property var            top: []
+    property var            topList: []
 
-    Component.onCompleted:  top = scoreStore.topScores(10)
+    Component.onCompleted:  topList = scoreStore.topScores(10)
 
     SilicaListView {
         anchors.fill:   parent
-        model:          top
+        model:          topList
 
         PullDownMenu {
             MenuItem {
@@ -60,7 +60,7 @@ Page {
             }
 
             SectionHeader {
-                visible: top.length > 0
+                visible: topList.length > 0
                 text:    qsTr("Best of all time")
             }
         }
