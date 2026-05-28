@@ -58,10 +58,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Top scores</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Top Score</source>
         <translation type="unfinished"></translation>
     </message>

@@ -103,105 +103,36 @@ Page {
             }
 
             SectionHeader { text: qsTr("Part 2") }
-            Row {
-                spacing: Theme.paddingLarge
-                Column {
-                    Repeater {
-                        model: scoreModel
-                        Label {
-                            visible: section === 2
-                            text:    label
-                            color:   Theme.highlightColor
-                        }
-                    }
-                    Label {
-                        text:   qsTr("Total part 2")
-                        color: Theme.highlightColor
-                    }
-                }
-                Column {
-                    Repeater {
-                        model: scoreModel
-                        Label {
-                            visible: section === 2
-                            text:    hint
-                            color:   Theme.secondaryHighlightColor
-                        }
-                    }
-                    Label {
-                        text:   "→"
-                        color:  Theme.secondaryHighlightColor
-                    }
-                }
-                Column {
-                    Repeater {
-                        model: scoreModel
-                        Label {
-                            visible: section === 2
-                            text:    filled ? score.toString() : "..."
-                            color:   filled ? Theme.primaryColor : Theme.secondaryColor
-
-                            MouseArea {
-                                anchors.fill: parent
-                                onClicked:    commitScore(index)
-                            }
-                        }
-                    }
-                    Label {
-                        id:     totalPart2
-                        text:   part2Total
-                        color:  Theme.primaryColor
-                    }
+            Repeater {
+                model: scoreModel
+                delegate: ScoreRow {
+                    visible:    section === 2
+                    labelText:  label
+                    hintText:   hint
+                    scoreText:  filled ? score.toString() : "…"
+                    scoreColor: filled ? Theme.primaryColor : Theme.secondaryColor
+                    clickable:  true
+                    onClicked:  commitScore(index)
                 }
             }
+            ScoreRow {
+                labelText:  qsTr("Total part 2")
+                hintText:   "→"
+                scoreText:  part2Total
+            }
+
             SectionHeader { text: qsTr("Grand Total") }
-            Row {
-                spacing: Theme.paddingLarge
-                Column {
-                    Label {
-                        text:   qsTr("Total part 1")
-                        color:  Theme.highlightColor
-                    }
-                    Label {
-                        text:   qsTr("Total part 2")
-                        color:  Theme.highlightColor
-                    }
-                    Label {
-                        text:   qsTr("Grand Total")
-                        color:  Theme.highlightColor
-                    }
-                }
-                Column {
-                    Label {
-                        text:   ""
-                        color:  Theme.secondaryHighlightColor
-                    }
-                    Label {
-                        text:   ""
-                        color:  Theme.secondaryHighlightColor
-                    }
-                    Label {
-                        text:   ""
-                        color:  Theme.secondaryHighlightColor
-                    }
-                }
-                Column {
-                    Label {
-                        id:     grandTotalPart1
-                        text:   part1Total
-                        color:  Theme.primaryColor
-                    }
-                    Label {
-                        id:     grandTotalPart2
-                        text:   part2Total
-                        color:  Theme.primaryColor
-                    }
-                    Label {
-                        id:     grandTotal
-                        text:   grandTotalVal
-                        color:  Theme.primaryColor
-                    }
-                }
+            ScoreRow {
+                labelText:  qsTr("Total part 1")
+                scoreText:  part1Total
+            }
+            ScoreRow {
+                labelText:  qsTr("Total part 2")
+                scoreText:  part2Total
+            }
+            ScoreRow {
+                labelText:  qsTr("Grand Total")
+                scoreText:  grandTotalVal
             }
 
             Separator {
