@@ -74,84 +74,34 @@ Page {
 
             PageHeader { title: qsTr("Top Score") }
             SectionHeader { text: qsTr("Part 1") }
-            Row {
-                spacing: Theme.paddingLarge
-                Column {
-                    Repeater {
-                        model: scoreModel
-                        Label {
-                            visible:    section === 1
-                            text:       label
-                            color:      Theme.highlightColor
-                        }
-                    }
-                    Label {
-                        text:   qsTr("Total points")
-                        color:  Theme.highlightColor
-                    }
-                    Label {
-                        text:   qsTr("Bonus on 63 or more")
-                        color:  Theme.highlightColor
-                    }
-                    Label {
-                        text:   qsTr("Total part 1")
-                        color:  Theme.highlightColor
-                    }
-                }
-                Column {
-                    Repeater {
-                        model: scoreModel
-                        Label {
-                            visible: section === 1
-                            text:    hint
-                            color:   Theme.secondaryHighlightColor
-                        }
-                    }
-                    Label {
-                        text:   "→"
-                        color:  Theme.secondaryHighlightColor
-                    }
-                    Label {
-                        text:   qsTr("35 points")
-                        color:  Theme.secondaryHighlightColor
-                    }
-                    Label {
-                        text:   "→"
-                        color:  Theme.secondaryHighlightColor
-                    }
-                }
-                Column {
-                    Repeater {
-                        model: scoreModel
-                        Label {
-                            visible: section === 1
-                            text:    filled ? score.toString() : "..."
-                            color:   filled ? Theme.primaryColor : Theme.secondaryColor
-
-                            MouseArea {
-                                anchors.fill: parent
-                                onClicked:    commitScore(index)
-                            }
-                        }
-                    }
-                    Label {
-                        id:     subtotal
-                        text:   part1Subtotal
-                        color:  Theme.primaryColor
-                    }
-
-                    Label {
-                        id:     bonus
-                        text:   part1Bonus
-                        color:  Theme.primaryColor
-                    }
-                    Label {
-                        id:     totalPart1
-                        text:   part1Total
-                        color:  Theme.primaryColor
-                    }
+            Repeater {
+                model: scoreModel
+                delegate: ScoreRow {
+                    visible:    section === 1
+                    labelText:  label
+                    hintText:   hint
+                    scoreText:  filled ? score.toString() : "…"
+                    scoreColor: filled ? Theme.primaryColor : Theme.secondaryColor
+                    clickable:  true
+                    onClicked:  commitScore(index)
                 }
             }
+            ScoreRow {
+                labelText:  qsTr("Total points")
+                hintText:   "→"
+                scoreText:  part1Subtotal
+            }
+            ScoreRow {
+                labelText:  qsTr("Bonus on 63 or more")
+                hintText:   qsTr("35 points")
+                scoreText:  part1Bonus
+            }
+            ScoreRow {
+                labelText:  qsTr("Total part 1")
+                hintText:   "→"
+                scoreText:  part1Total
+            }
+
             SectionHeader { text: qsTr("Part 2") }
             Row {
                 spacing: Theme.paddingLarge

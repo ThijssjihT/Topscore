@@ -23,6 +23,7 @@ DISTFILES += qml/harbour_topscore.qml \
     qml/assets/4.svg \
     qml/assets/5.svg \
     qml/assets/6.svg \
+    qml/assets/coverdie.png \
     qml/cover/CoverPage.qml \
     qml/pages/ScoreStore.qml \
     qml/pages/Scores.qml \
