@@ -16,6 +16,10 @@
         <source>Current game:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Previous game:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Scores</name>

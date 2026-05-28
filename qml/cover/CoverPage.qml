@@ -23,6 +23,7 @@ CoverBackground {
             anchors.horizontalCenter:   parent.horizontalCenter
             text:                       qsTr("Current game:")
             color:                      Theme.secondaryColor
+            visible:                    scoreStore.currentTotal > 0
         }
         Label {
             anchors.horizontalCenter:   parent.horizontalCenter
@@ -36,6 +37,27 @@ CoverBackground {
             visible:                    scoreStore.currentTotal > 0
             //: %1 = player's rank, 1 = best ever
             text:                       qsTr("rank %1").arg(scoreStore.currentRank)
+            color:                      Theme.highlightColor
+        }
+
+        Label {
+            anchors.horizontalCenter:   parent.horizontalCenter
+            visible:                    !(scoreStore.currentTotal > 0)
+            text:                       qsTr("Previous game:")
+            color:                      Theme.secondaryColor
+        }
+        Label {
+            anchors.horizontalCenter:   parent.horizontalCenter
+            visible:                    !(scoreStore.currentTotal > 0)
+            text:                       scoreStore.previousTotal
+            font.pixelSize:             Theme.fontSizeHuge
+            color:                      Theme.primaryColor
+        }
+        Label {
+            anchors.horizontalCenter:   parent.horizontalCenter
+            visible:                    !(scoreStore.currentTotal > 0)
+            //: %1 = player's rank, 1 = best ever
+            text:                       qsTr("rank %1").arg(scoreStore.previousRank)
             color:                      Theme.highlightColor
         }
     }

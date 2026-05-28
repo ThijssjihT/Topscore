@@ -4,9 +4,12 @@ import QtQuick.LocalStorage 2.0
 QtObject {
 
     id: store
+    Component.onCompleted: loadPrevious()
 
     property int    currentTotal:   0
     property int    currentRank:    1
+    property int    previousTotal:  0
+    property int    previousRank:   0
 
     function _db() {
         return LocalStorage.openDatabaseSync(
@@ -29,8 +32,10 @@ QtObject {
         _db().transaction(function(tx) {
             tx.executeSql('INSERT INTO scores VALUES (?, ?)', [score, iso])
         })
-        currentTotal = score
-        currentRank  = rankFor(score)
+        currentTotal    = score
+        currentRank     = rankFor(score)
+        previousTotal   = score
+        previousRank    = currentRank   // same as just-computed currentRank
     }
 
     function allScores() {
@@ -80,5 +85,17 @@ QtObject {
     function setCurrent(score) {
         currentTotal = score
         currentRank  = rankFor(score)
+    }
+
+    function loadPrevious() {
+        _ensure()
+        _db().readTransaction(function(tx) {
+            var rs = tx.executeSql(
+                'SELECT score FROM scores ORDER BY date DESC LIMIT 1')
+            if (rs.rows.length > 0) {
+                previousTotal = rs.rows.item(0).score
+                previousRank  = rankFor(previousTotal)
+            }
+        })
     }
 }
