@@ -55,14 +55,14 @@ Page {
 
         // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
         PullDownMenu {
+ //           MenuItem {
+ //               text: qsTr("Settings")
+ //               onClicked: pageStack.animatorPush(Qt.resolvedUrl("Settings.qml"))
+ //           }
             MenuItem {
-                text: qsTr("Settings")
-                onClicked: pageStack.animatorPush(Qt.resolvedUrl("Settings.qml"))
+                text: qsTr("Top scores")
+                onClicked: pageStack.animatorPush(Qt.resolvedUrl("Scores.qml"))
             }
-  //          MenuItem {
-  //              text: qsTr("Top scores")
-  //              onClicked: pageStack.animatorPush(Qt.resolvedUrl("Scores.qml"))
-  //          }
         }
 
         // Tell SilicaFlickable the height of its content.

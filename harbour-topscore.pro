@@ -10,13 +10,13 @@
 #   - translation filenames have to be changed
 
 # The name of your application
-TARGET = harbour_topscore
+TARGET = harbour-topscore
 
 CONFIG += sailfishapp
 
-SOURCES += src/harbour_topscore.cpp
+SOURCES += src/harbour-topscore.cpp
 
-DISTFILES += qml/harbour_topscore.qml \
+DISTFILES += qml/harbour-topscore.qml \
     qml/assets/1.svg \
     qml/assets/2.svg \
     qml/assets/3.svg \
@@ -29,11 +29,11 @@ DISTFILES += qml/harbour_topscore.qml \
     qml/pages/Scores.qml \
     qml/pages/Settings.qml \
     qml/pages/Topscore.qml \
-    rpm/harbour_topscore.changes.in \
-    rpm/harbour_topscore.changes.run.in \
-    rpm/harbour_topscore.spec \
+    rpm/harbour-topscore.changes.in \
+    rpm/harbour-topscore.changes.run.in \
+    rpm/harbour-topscore.spec \
     translations/*.ts \
-    harbour_topscore.desktop
+    harbour-topscore.desktop
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172
 
