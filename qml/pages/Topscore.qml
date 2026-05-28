@@ -166,7 +166,6 @@ Page {
                         break
                     case 3:
                         rollButton.text = qsTr("Enter score")
-                        rollButton.enabled = false
                         break
                     }
                 }
@@ -342,7 +341,6 @@ Page {
     function resetTurn() {
         rollNumber = 0
         rollButton.text = qsTr("1st Roll")
-        rollButton.enabled = true
         for (var i = 0; i < 5; i++) {
             diceRepeater.itemAt(i).checked = false
         }
