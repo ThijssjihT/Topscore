@@ -1,20 +1,20 @@
 [Desktop Entry]
 Type=Application
 X-Nemo-Application-Type=silica-qt5
-Icon=harbour_topscore
-Exec=harbour_topscore
+Icon=harbour-topscore
+Exec=harbour-topscore
 Name=TopScore
 # translation example:
 # your app name in German locale (de)
 #
 # Remember to comment out the following line, if you do not want to use
 # a different app name in German locale (de).
-#Name[de]=harbour_topscore
+#Name[de]=harbour-topscore
 
 [X-Sailjail]
 # Replace with your organization as a reverse domain name
 OrganizationName=org.myorg
 # ApplicationName does not have to be identical to Name
-ApplicationName=harbour_topscore
+ApplicationName=harbour-topscore
 # Add the required permissions here
 Permissions=
