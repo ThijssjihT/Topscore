@@ -3,7 +3,9 @@ import Sailfish.Silica 1.0
 
 Page {
     id:                     page
-    allowedOrientations:    Orientation.All
+    allowedOrientations:    Orientation.Portrait
+//    allowedOrientations:    Orientation.All
+//  Change back when behind dock bug is fixed.
     onGameCompleteChanged:  if (gameComplete) finishTimer.start()
     Component.onCompleted:  scoreStore.setCurrent(0)
     onGrandTotalValChanged: scoreStore.setCurrent(grandTotalVal)
