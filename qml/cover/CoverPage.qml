@@ -2,6 +2,13 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 CoverBackground {
+    Image {
+        anchors.fill:   parent
+        source:         "../assets/coverdie.png"
+        fillMode:       Image.PreserveAspectFit
+        opacity:        0.4
+    }
+
     Column {
         anchors.centerIn:   parent
         spacing:            Theme.paddingSmall
@@ -19,6 +26,7 @@ CoverBackground {
         }
         Label {
             anchors.horizontalCenter:   parent.horizontalCenter
+            visible:                    scoreStore.currentTotal > 0
             text:                       scoreStore.currentTotal
             font.pixelSize:             Theme.fontSizeHuge
             color:                      Theme.primaryColor
