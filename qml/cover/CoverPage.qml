@@ -6,7 +6,7 @@ CoverBackground {
         anchors.fill:   parent
         source:         "../assets/coverdie.png"
         fillMode:       Image.PreserveAspectFit
-        opacity:        0.4
+        opacity:        0.35
     }
 
     Column {
