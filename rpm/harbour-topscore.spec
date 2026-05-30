@@ -1,7 +1,7 @@
 Name:       harbour-topscore
 
 Summary:    Topscore
-Version:    1
+Version:    1.0.2
 Release:    1
 License:    LICENSE
 URL:        http://example.org/

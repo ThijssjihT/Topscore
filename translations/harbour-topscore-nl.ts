@@ -6,24 +6,24 @@
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="19"/>
         <source>Top Score</source>
-        <translation type="unfinished"></translation>
+        <translation>Top Score</translation>
     </message>
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="24"/>
         <source>Current game:</source>
-        <translation type="unfinished"></translation>
+        <translation>Huidige spel:</translation>
     </message>
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="39"/>
         <location filename="../qml/cover/CoverPage.qml" line="60"/>
         <source>rank %1</source>
         <extracomment>%1 = player&apos;s rank, 1 = best ever</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>rang %1</translation>
     </message>
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="46"/>
         <source>Last finished game:</source>
-        <translation type="unfinished"></translation>
+        <translation>Laatst afgerond spel:</translation>
     </message>
 </context>
 <context>
@@ -31,27 +31,27 @@
     <message>
         <location filename="../qml/pages/Scores.qml" line="21"/>
         <source>New game</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuw spel</translation>
     </message>
     <message>
         <location filename="../qml/pages/Scores.qml" line="31"/>
         <source>Top scores</source>
-        <translation type="unfinished"></translation>
+        <translation>Top scores</translation>
     </message>
     <message>
         <location filename="../qml/pages/Scores.qml" line="45"/>
         <source>Your score</source>
-        <translation type="unfinished"></translation>
+        <translation>Jouw score</translation>
     </message>
     <message>
         <location filename="../qml/pages/Scores.qml" line="56"/>
         <source>Rank %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Rang %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/Scores.qml" line="64"/>
         <source>Best of all time</source>
-        <translation type="unfinished"></translation>
+        <translation>Best ooit</translation>
     </message>
 </context>
 <context>
@@ -59,12 +59,12 @@
     <message>
         <location filename="../qml/pages/Settings.qml" line="15"/>
         <source>Nested Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Geneste pagina</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings.qml" line="22"/>
         <source>Item</source>
-        <translation type="unfinished"></translation>
+        <translation>Item</translation>
     </message>
 </context>
 <context>
@@ -72,200 +72,200 @@
     <message>
         <location filename="../qml/pages/Topscore.qml" line="19"/>
         <source>Ones</source>
-        <translation type="unfinished"></translation>
+        <translation>Enen</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="19"/>
         <source>Total 1&apos;s</source>
-        <translation type="unfinished"></translation>
+        <translation>Totaal 1&apos;en</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="20"/>
         <source>Twos</source>
-        <translation type="unfinished"></translation>
+        <translation>Tweeën</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="20"/>
         <source>Total 2&apos;s</source>
-        <translation type="unfinished"></translation>
+        <translation>Totaal 2&apos;en</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="21"/>
         <source>Threes</source>
-        <translation type="unfinished"></translation>
+        <translation>Drieën</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="21"/>
         <source>Total 3&apos;s</source>
-        <translation type="unfinished"></translation>
+        <translation>Totaal 3&apos;en</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="22"/>
         <source>Fours</source>
-        <translation type="unfinished"></translation>
+        <translation>Vieren</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="22"/>
         <source>Total 4&apos;s</source>
-        <translation type="unfinished"></translation>
+        <translation>Totaal 4&apos;en</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="23"/>
         <source>Fives</source>
-        <translation type="unfinished"></translation>
+        <translation>Vijven</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="23"/>
         <source>Total 5&apos;s</source>
-        <translation type="unfinished"></translation>
+        <translation>Totaal 5&apos;en</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="24"/>
         <source>Sixes</source>
-        <translation type="unfinished"></translation>
+        <translation>Zessen</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="24"/>
         <source>Total 6&apos;s</source>
-        <translation type="unfinished"></translation>
+        <translation>Totaal 6&apos;en</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="25"/>
         <source>Three of a Kind</source>
-        <translation type="unfinished"></translation>
+        <translation>Drie gelijk</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="25"/>
         <location filename="../qml/pages/Topscore.qml" line="26"/>
         <location filename="../qml/pages/Topscore.qml" line="31"/>
         <source>Sum of all dice</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle ogen tellen</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="26"/>
         <source>Four of a Kind</source>
-        <translation type="unfinished"></translation>
+        <translation>Vier gelijk</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="27"/>
         <source>Full House</source>
-        <translation type="unfinished"></translation>
+        <translation>Full House</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="27"/>
         <source>25 points</source>
-        <translation type="unfinished"></translation>
+        <translation>25 punten</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="28"/>
         <source>Small Straight</source>
-        <translation type="unfinished"></translation>
+        <translation>Kleine straat</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="28"/>
         <source>30 points</source>
-        <translation type="unfinished"></translation>
+        <translation>30 punten</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="29"/>
         <source>Large Straight</source>
-        <translation type="unfinished"></translation>
+        <translation>Grote straat</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="29"/>
         <source>40 points</source>
-        <translation type="unfinished"></translation>
+        <translation>40 punten</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="30"/>
         <location filename="../qml/pages/Topscore.qml" line="81"/>
         <source>Top Score</source>
-        <translation type="unfinished"></translation>
+        <translation>Top Score</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="30"/>
         <source>50 points</source>
-        <translation type="unfinished"></translation>
+        <translation>50 punten</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="31"/>
         <source>Chance</source>
-        <translation type="unfinished"></translation>
+        <translation>Kans</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="65"/>
         <source>Top scores</source>
-        <translation type="unfinished"></translation>
+        <translation>Top scores</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="82"/>
         <source>Part 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Deel 1</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="96"/>
         <source>Total points</source>
-        <translation type="unfinished"></translation>
+        <translation>Totale punten</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="101"/>
         <source>Bonus on 63 or more</source>
-        <translation type="unfinished"></translation>
+        <translation>Bonus op 63 of meer</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="102"/>
         <source>35 points</source>
-        <translation type="unfinished"></translation>
+        <translation>35 punten</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="106"/>
         <location filename="../qml/pages/Topscore.qml" line="132"/>
         <source>Total part 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Totaal deel 1</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="111"/>
         <source>Part 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Deel 2</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="125"/>
         <location filename="../qml/pages/Topscore.qml" line="136"/>
         <source>Total part 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Totaal deel 2</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="130"/>
         <location filename="../qml/pages/Topscore.qml" line="140"/>
         <source>Grand Total</source>
-        <translation type="unfinished"></translation>
+        <translation>Eindtotaal</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="152"/>
         <location filename="../qml/pages/Topscore.qml" line="350"/>
         <source>1st Roll</source>
-        <translation type="unfinished"></translation>
+        <translation>1e worp</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="162"/>
         <source>2nd Roll</source>
-        <translation type="unfinished"></translation>
+        <translation>2e worp</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="165"/>
         <source>Last roll</source>
-        <translation type="unfinished"></translation>
+        <translation>Laatste worp</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="168"/>
         <source>Enter score</source>
-        <translation type="unfinished"></translation>
+        <translation>Score invoeren</translation>
     </message>
     <message>
         <location filename="../qml/pages/Topscore.qml" line="336"/>
         <source>Scoring %1: %2</source>
         <extracomment>%1 = category name (e.g. &quot;Fives&quot;), %2 = points</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Scoring %1: %2</translation>
     </message>
 </context>
 </TS>
