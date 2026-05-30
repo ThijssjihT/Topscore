@@ -3,9 +3,7 @@ import Sailfish.Silica 1.0
 
 Page {
     id:                     page
-    allowedOrientations:    Orientation.Portrait
-//    allowedOrientations:    Orientation.All
-//  Change back when behind dock bug is fixed.
+    allowedOrientations:    Orientation.All
     onGameCompleteChanged:  if (gameComplete) finishTimer.start()
     Component.onCompleted:  scoreStore.setCurrent(0)
     onGrandTotalValChanged: scoreStore.setCurrent(grandTotalVal)
@@ -53,7 +51,9 @@ Page {
 
     // To enable PullDownMenu, place our content in a SilicaFlickable
     SilicaFlickable {
-        anchors.fill: parent
+        anchors.fill:           parent
+        anchors.bottomMargin:   diceView.visibleSize
+        clip:                   true
 
         // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
         PullDownMenu {
@@ -74,10 +74,8 @@ Page {
         // of the page, followed by our content.
         Column {
             id:                 column
-            width:              parent.width
-            anchors.left:       parent.left
-            anchors.right:      parent.right
-            anchors.margins:    Theme.horizontalPageMargin
+            width:              parent.width -2 * Theme.horizontalPageMargin
+            x:                  Theme.horizontalPageMargin
             spacing:            Theme.paddingSmall
 
             PageHeader { title: qsTr("Top Score") }
@@ -172,13 +170,17 @@ Page {
                     }
                 }
             }
+            Item {                       // breathing room so the button clears the dock
+                            width:  1
+                            height: Theme.paddingLarge
+            }
         }
     }
 
     DockedPanel {
         id:         diceView
         width:      parent.width
-        height:     Theme.itemSizeExtraLarge + Theme.paddingLarge
+        height:     diceRow.height + 2 * Theme.paddingMedium
         dock:       Dock.Bottom
 
         Rectangle {
@@ -188,8 +190,11 @@ Page {
         }
 
         Row {
-            anchors.centerIn:   parent
-            spacing:            Theme.paddingMedium
+            id:                             diceRow
+            anchors.horizontalCenter:       parent.horizontalCenter
+            anchors.verticalCenter:         parent.verticalCenter
+            anchors.verticalCenterOffset:   -Theme.paddingLarge
+            spacing:                        Theme.paddingMedium
             Repeater {
                 id:     diceRepeater
                 model:  diceModel
